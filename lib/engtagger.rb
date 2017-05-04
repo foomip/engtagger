@@ -642,7 +642,9 @@ class EngTagger
     text = text.gsub(/--+/o, " - ") # Convert and separate dashes
     text = text.gsub(/,(?!\d)/o, " , ") # Shift commas off everything but numbers
     text = text.gsub(/:/o, " : ") # Shift semicolons off
-    text = text.gsub(/'/o, " ' ") # Shift apostrophes off
+    text = text.gsub(/'/o, " ' ") # Shift single quote off
+    text = text.gsub!(/[”“]/, ' ') # Shift curly quotes off
+    text = text.gsub!(/[‘’]/, " ") # Shift curly apostrophes off
     text = text.gsub(/\.(?!\d)/o, " . ") # Shift periods off everything but numbers
     text = text.gsub(/(\.\.\.+)/o){" " + $1 + " "} # Shift ellipses off
     text = text.gsub(/([\(\[\{\}\]\)])/o){" " + $1 + " "} # Shift off brackets
