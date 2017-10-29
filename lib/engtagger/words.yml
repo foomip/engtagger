@@ -29445,7 +29445,7 @@ plaudits: { nns: 1 }
 plausible: { jj: 5 }
 plausibly: { rb: 1 }
 Play: { nnp: 1, nn: 1 }
-play: { vbp: 12, vb: 60, nn: 48 }
+play: { vbp: 12, vb: 60, nn: 40 }
 Playback: { nnp: 2 }
 Playboy: { nnp: 1 }
 played: { vbn: 28, vbd: 34 }
@@ -38418,7 +38418,7 @@ sweepingly: { rb: 1 }
 sweeps: { vbz: 1, nns: 2 }
 sweepstakes: { nn: 3, nns: 1 }
 sweet-natured: { jj: 1 }
-sweet: { jj: 13, nn: 1 }
+sweet: { jj: 13, nn: 12 }
 sweeten: { vb: 4 }
 sweetened: { jj: 1, vbn: 9, vbd: 6 }
 sweetener: { nn: 1 }
