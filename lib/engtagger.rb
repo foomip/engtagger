@@ -662,7 +662,6 @@ class EngTagger
   # Given a preceding tag, assign a tag word. Called by the add_tags method.
   # This method is a modified version of the Viterbi algorithm for part-of-speech tagging
   def assign_tag(prev_tag, word)
-    p word
     if word == "-unknown-"
       # classify unknown words accordingly
       return @conf[:unknown_word_tag]
@@ -693,16 +692,12 @@ class EngTagger
       # P =  P( tag | prev_tag ) * P( tag | word )
       probability = t[prev_tag][tag] * (pw + 1)
 
-      p "#{prev_tag} -> #{tag} = #{t[prev_tag][tag]} (#{probability})"
-
       # Set the tag with maximal probability
       if probability > best_so_far
         best_so_far = probability
         best_tag = tag
       end
-      p "BEST: #{best_tag}"
     end
-    p 'NEXT'
     return best_tag
   end
 
