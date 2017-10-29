@@ -188,19 +188,19 @@ class EngTagger
   # See above for details.
   def initialize(params = {})
     @conf = Hash.new
-    @conf[:unknown_word_tag] = ''
-    @conf[:stem] = false
-    @conf[:weight_noun_phrases] = false
-    @conf[:longest_noun_phrase] = 5
-    @conf[:relax] = false
-    @conf[:tag_lex] = 'tags.yml'
-    @conf[:word_lex] = 'words.yml'
-    @conf[:unknown_lex] = 'unknown.yml'
-    @conf[:word_path] = $word_path
-    @conf[:tag_path] = $tag_path
-    @conf[:debug] = false
+    @conf[:unknown_word_tag]      = ''
+    @conf[:stem]                  = params.fetch :stem, false
+    @conf[:weight_noun_phrases]   = params.fetch :weight_noun_phrases, false
+    @conf[:longest_noun_phrase]   = 5
+    @conf[:relax]                 = params.fetch :relax, false
+    @conf[:tag_lex]               = 'tags.yml'
+    @conf[:word_lex]              = 'words.yml'
+    @conf[:unknown_lex]           = 'unknown.yml'
+    @conf[:word_path]             = $word_path
+    @conf[:tag_path]              = $tag_path
+    @conf[:debug]                 = params.fetch :debug, false
     # assuming that we start analyzing from the beginninga new sentence...
-    @conf[:current_tag] = 'pp'
+    @conf[:current_tag]           = 'pp'
     @conf.merge!(params)
     unless File.exists?(@conf[:word_path]) and File.exists?(@conf[:tag_path])
       print "Couldn't locate POS lexicon, creating a new one" if @conf[:debug]
@@ -662,6 +662,7 @@ class EngTagger
   # Given a preceding tag, assign a tag word. Called by the add_tags method.
   # This method is a modified version of the Viterbi algorithm for part-of-speech tagging
   def assign_tag(prev_tag, word)
+    p word
     if word == "-unknown-"
       # classify unknown words accordingly
       return @conf[:unknown_word_tag]
@@ -691,12 +692,17 @@ class EngTagger
       # Bayesian logic:
       # P =  P( tag | prev_tag ) * P( tag | word )
       probability = t[prev_tag][tag] * (pw + 1)
+
+      p "#{prev_tag} -> #{tag} = #{t[prev_tag][tag]} (#{probability})"
+
       # Set the tag with maximal probability
       if probability > best_so_far
         best_so_far = probability
         best_tag = tag
       end
+      p "BEST: #{best_tag}"
     end
+    p 'NEXT'
     return best_tag
   end
 
